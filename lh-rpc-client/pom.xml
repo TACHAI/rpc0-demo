@@ -11,5 +11,26 @@
 
     <artifactId>lh-rpc-client</artifactId>
 
-
+    <dependencies>
+        <dependency>
+            <groupId>com.laishishui</groupId>
+            <artifactId>lh-rpc-proto</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.laishishui</groupId>
+            <artifactId>lh-rpc-codec</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.laishishui</groupId>
+            <artifactId>lh-rpc-common</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.laishishui</groupId>
+            <artifactId>lh-rpc-transport</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 </project>
