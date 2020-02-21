@@ -29,12 +29,12 @@ public class RpcServer {
     private ServiceManager serviceManager;
     private ServiceInvoker serviceInvoker;
 
-    public RpcServer(RpcServerConfig config){
-        this.config=config;
+    public RpcServer(){
+        this.config=new RpcServerConfig();
         this.net = ReflectionUtils.newInstance(config.getTransportClass());
-        this.net.init(config.getPort(),this.ha);
+        this.net.init(config.getPort(),this.handler);
 
-        this.encoder = ReflectionUtils.newInstance(config.getDecoderClass);
+        this.encoder = ReflectionUtils.newInstance(config.getEncoderClass());
 
         this.decoder = ReflectionUtils.newInstance(config.getDecoderClass());
 
@@ -56,13 +56,13 @@ public class RpcServer {
         @Override
         public void onRequest(InputStream recive, OutputStream toResp) {
             Response resp = new Response();
-            //  TODO
             try {
-                byte[] inBytes = IOUtils.readFully(recive,recive.available());
+                byte[] inBytes = IOUtils.readFully(recive,recive.available(),true);
                 Request request = decoder.decode(inBytes,Request.class);
                 ServiceInstance sis = serviceManager.lookup(request);
                 serviceInvoker.invoke(sis,request);
                 Object ret = serviceInvoker.invoke(sis,request);
+                resp.setData(ret);
             }catch (IOException e){
                 log.warn(e.getMessage(),e);
                 resp.setCode(1);
@@ -77,5 +77,5 @@ public class RpcServer {
 
             }
         }
-    }
+    };
 }

@@ -9,6 +9,7 @@
         <module name="lh-rpc-client" />
         <module name="lh-rpc-codec" />
         <module name="lh-rpc-common" />
+        <module name="lh-rpc-example" />
         <module name="lh-rpc-proto" />
         <module name="lh-rpc-server" />
         <module name="lh-rpc-transport" />

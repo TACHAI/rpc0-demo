@@ -15,6 +15,7 @@
         <module>lh-rpc-transport</module>
         <module>lh-rpc-server</module>
         <module>lh-rpc-client</module>
+        <module>lh-rpc-example</module>
     </modules>
     <properties>
         <java.version>1.8</java.version>
