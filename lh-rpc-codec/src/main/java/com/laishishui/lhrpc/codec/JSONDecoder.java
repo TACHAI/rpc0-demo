@@ -13,6 +13,6 @@ public class JSONDecoder implements Decoder {
     @Override
     public <T> T decode(byte[] bytes, Class<T> clazz) {
         //return JSON.toJSONBytes();
-        return null;
+        return JSON.parseObject(bytes,clazz);
     }
 }

@@ -33,7 +33,7 @@ public class RandomTransportSelector implements TransportSelector {
         count = Math.max(count,1);
         for(Peer peer:peers){
             for(int i=0;i<count;i++){
-                TransportClient client = ReflectionUtils.newInstance();
+                TransportClient client = ReflectionUtils.newInstance(clazz);
                 client.connect(peer);
                 clients.add(client);
             }

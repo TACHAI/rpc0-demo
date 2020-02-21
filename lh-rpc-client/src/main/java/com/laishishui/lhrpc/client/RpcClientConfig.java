@@ -7,6 +7,7 @@ import com.laishishui.lhrpc.codec.JSONDecoder;
 import com.laishishui.lhrpc.codec.JSONEncoder;
 import com.laishishui.lhrpc.transport.HTTPTransportClient;
 import com.laishishui.lhrpc.transport.TransportClient;
+import lombok.Data;
 
 import java.util.Arrays;
 import java.util.List;
@@ -16,6 +17,7 @@ import java.util.List;
  * gitHub https://github.com/TACHAI
  * Email tc1206966083@gmail.com
  */
+@Data
 public class RpcClientConfig {
     private Class<? extends TransportClient> transportClass = HTTPTransportClient.class;
     private Class<? extends Encoder> encoderClass = JSONEncoder.class;

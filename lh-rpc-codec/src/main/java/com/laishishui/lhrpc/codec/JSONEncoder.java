@@ -1,5 +1,7 @@
 package com.laishishui.lhrpc.codec;
 
+import com.alibaba.fastjson.JSON;
+
 /**
  * 基于json的序列化实现
  * Create by tachai on 2020-02-11 20:46
@@ -9,6 +11,6 @@ package com.laishishui.lhrpc.codec;
 public class JSONEncoder implements Encoder {
     @Override
     public byte[] encode(Object obj) {
-        return new byte[0];
+        return JSON.toJSONBytes(obj);
     }
 }

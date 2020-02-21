@@ -30,6 +30,7 @@ public class RemoteInvoker implements InvocationHandler {
     private Encoder encoder;
     private Decoder decoder;
     private TransportSelector selector;
+    private Response resp;
 
     public RemoteInvoker(Class clazz, Encoder encoder, Decoder decoder,TransportSelector selector){
         this.clazz = clazz;
@@ -44,10 +45,10 @@ public class RemoteInvoker implements InvocationHandler {
         request.setService(ServiceDescriptor.from(clazz,method));
         request.setParmeters(args);
         Response response = invokeRemote(request);
-        if(request.getCode()!=0||response==null){
+        if(response.getCode()!=0||response==null){
             throw new IllegalStateException("fail to invoke remote:"+"");
         }
-        return request.getData();
+        return response.getData();
     }
 
 
@@ -57,7 +58,7 @@ public class RemoteInvoker implements InvocationHandler {
             client = selector.select();
             byte[] outBytes = encoder.encode(request);
             InputStream revice = client.write(new ByteArrayInputStream(outBytes));
-            byte[] inBytes = IOUtils.readFully(revice,revice.available());
+            byte[] inBytes = IOUtils.readFully(revice,revice.available(),true);
             resp = decoder.decode(inBytes,Response.class);
         }catch (IOException e){
             log.warn(e.getMessage(),e);

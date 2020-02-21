@@ -43,6 +43,7 @@ public class ReflectionUtils {
     }
 
 
+    // 如果是静态方法，则对象写null
     public static Object invoke(Object obj,Method method,Object... args){
         try{
             return method.invoke(obj,args);
