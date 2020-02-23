@@ -19,17 +19,15 @@ public class RpcClient {
     private TransportSelector selector;
 
     public RpcClient(){
-        this(new RpcClientConfig());
-    }
 
-    public RpcClient(RpcClientConfig config){
-        this.config = config;
-        this.encoder = ReflectionUtils.newInstance(this.encoder.getClass());
-        this.decoder = ReflectionUtils.newInstance(this.decoder.getClass());
-        this.selector = ReflectionUtils.newInstance(this.selector.getClass());
+        this.config = new RpcClientConfig();
+        this.encoder = ReflectionUtils.newInstance(this.config.getEncoderClass());
+        this.decoder = ReflectionUtils.newInstance(this.config.getDecoderClass());
+        this.selector = ReflectionUtils.newInstance(this.config.getSelectorClass());
 
         this.selector.init(this.config.getServers(),this.config.getConnectCount(),this.config.getTransportClass());
     }
+
 
     public <T> T getProxy(Class<T> clazz){
         return(T) Proxy.newProxyInstance(getClass().getClassLoader(),new Class[]{clazz},new RemoteInvoker(clazz,encoder,decoder,selector));

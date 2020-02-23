@@ -1,1 +1,1 @@
-[classPic.png]: ./images/classPic.png "classPic.png"
+![classPic.png](./images/classPic.png)

@@ -30,7 +30,6 @@ public class RemoteInvoker implements InvocationHandler {
     private Encoder encoder;
     private Decoder decoder;
     private TransportSelector selector;
-    private Response resp;
 
     public RemoteInvoker(Class clazz, Encoder encoder, Decoder decoder,TransportSelector selector){
         this.clazz = clazz;
@@ -45,14 +44,16 @@ public class RemoteInvoker implements InvocationHandler {
         request.setService(ServiceDescriptor.from(clazz,method));
         request.setParmeters(args);
         Response response = invokeRemote(request);
-        if(response.getCode()!=0||response==null){
-            throw new IllegalStateException("fail to invoke remote:"+"");
+        if(response==null|| response.getCode()!=0){
+            //System.out.println("response"+response.getCode());
+            throw new IllegalStateException("fail to invoke remote:"+response);
         }
         return response.getData();
     }
 
 
     private Response invokeRemote(Request request){
+        Response resp = null;
         TransportClient client = null;
         try {
             client = selector.select();
@@ -71,6 +72,6 @@ public class RemoteInvoker implements InvocationHandler {
                 selector.release(client);
             }
         }
-        return null;
+        return resp;
     }
 }

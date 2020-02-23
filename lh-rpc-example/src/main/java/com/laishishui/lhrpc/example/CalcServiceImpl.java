@@ -8,7 +8,7 @@ package com.laishishui.lhrpc.example;
 public class CalcServiceImpl implements CalcService {
     @Override
     public int add(int a, int b) {
-        return a-b;
+        return a+b;
     }
 
     @Override
